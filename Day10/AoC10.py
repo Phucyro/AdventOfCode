@@ -92,13 +92,11 @@ def completeMissing(listOfValues, errorFoundList):
         ">":4
     }
     
-    dicoResult = {}
-    testCount = 0
     result = []
     
     for i in range(len(listOfValues)):
         if errorFoundList[i] == None:
-            print(i)
+            
             #COMPLETe THOSES.
             symboleList = []
             isFinished = False
@@ -125,7 +123,7 @@ def completeMissing(listOfValues, errorFoundList):
             
             result.append(added)
     
-    print(result)
+    
     
     #calculate error result
     scoreResult = []
