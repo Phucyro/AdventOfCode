@@ -16,7 +16,11 @@ def findIllegalSyntax(listOfValues):
         "(":")",
         "[":"]",
         "{":"}",
-        "<":">"
+        "<":">",
+        ")":"(",
+        "]":"[",
+        "}":"{",
+        ">":"<" 
     }
     
     errorFoundList = []
@@ -62,9 +66,86 @@ def findIllegalSyntax(listOfValues):
     
     print(errorFoundList)
     print("Total error: ", totalError)
+    
+    completeMissing(listOfValues, errorFoundList)
         
-                    
+def completeMissing(listOfValues, errorFoundList):
+    
+    leftSymbols = ["(", "[", "{", "<"]
+    rightSymbols = [")", "]", "}", ">"]
+    
+    correspondingSymbols = {
+        "(":")",
+        "[":"]",
+        "{":"}",
+        "<":">",
+        ")":"(",
+        "]":"[",
+        "}":"{",
+        ">":"<" 
+    }
+    
+    errorCount = {
+        ")":1,
+        "]":2,
+        "}":3,
+        ">":4
+    }
+    
+    dicoResult = {}
+    testCount = 0
+    result = []
+    
+    for i in range(len(listOfValues)):
+        if errorFoundList[i] == None:
+            print(i)
+            #COMPLETe THOSES.
+            symboleList = []
+            isFinished = False
+            increment = 0
 
+            sequence = listOfValues[i]
+            while (not isFinished) and increment < len(sequence):
+                
+                value = sequence[increment]
+                
+                if value in leftSymbols:
+                    symboleList.append(value)
+                elif value in rightSymbols:
+                    tempLeft = symboleList.pop()
+                    
+                increment += 1
+            
+            added = ""
+            
+            for i in range(len(symboleList)):
+                added += correspondingSymbols[symboleList.pop()]
+            
+            
+            
+            result.append(added)
+    
+    print(result)
+    
+    #calculate error result
+    scoreResult = []
+
+    for sequence in result:
+        
+        totalScore = 0
+        for symbole in sequence:
+            totalScore *= 5
+            totalScore += errorCount[symbole]
+            
+        scoreResult.append(totalScore)
+    
+    scoreResult.sort()
+    
+    index = int((len(scoreResult)-1)/2)
+    print(scoreResult[index])
+    
+    
+    
 def main():
        
     try:       
